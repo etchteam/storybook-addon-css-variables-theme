@@ -36,9 +36,10 @@ export default makeDecorator({
   name: 'CSS Variables Theme',
   parameterName: ADDON_PARAM_KEY,
   wrapper: (getStory, context, { parameters }) => {
-    const channel = addons.getChannel();
-    const cookieId = getCookie('cssVariables');
     const { files } = parameters;
+    const keys = Object.keys((files || {}));
+    const channel = addons.getChannel();
+    const cookieId = getCookie('cssVariables') || keys[0];
 
     handleStyleSwitch({ id: cookieId, files });
 
