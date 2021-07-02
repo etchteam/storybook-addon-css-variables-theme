@@ -39,9 +39,11 @@ export default makeDecorator({
     const { files } = parameters;
     const keys = Object.keys((files || {}));
     const channel = addons.getChannel();
-    const cookieId = getCookie('cssVariables') || keys[0];
+    const cookieId = getCookie('cssVariables');
 
-    handleStyleSwitch({ id: cookieId, files });
+    const brand = cookieId && keys.indexOf(cookieId) > -1 ? cookieId : keys[0];
+
+    handleStyleSwitch({ id: brand, files });
 
     channel.on('cssVariablesChange', ({ id }: { id: string }) => handleStyleSwitch({ id, files }));
 
