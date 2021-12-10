@@ -54,5 +54,21 @@ export const parameters = {
 }
 ```
 
+### Set a specific theme for a story
+
+Pass the theme key as the `theme` parameter on the story to default to a specific theme
+
+```js
+export default {
+  title: 'Example/Header',
+  component: Header,
+  parameters: {
+    cssVariables: {
+      theme: 'dark'
+    }
+  }
+};
+```
+
 Made with ☕ at [Etch](https://etch.co)
 

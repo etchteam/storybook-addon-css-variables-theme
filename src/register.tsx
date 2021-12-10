@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { addons, types } from '@storybook/addons';
 import { useChannel, useParameter } from '@storybook/api';
 import { styled } from '@storybook/theming';
@@ -16,10 +16,21 @@ const StyledSelect = styled.select`
 
 const Dropdown = () => {
   const id = getCookie('cssVariables');
+  const addonParams: {
+    files?: { [key:string]: any },
+    theme?: string
+  } = useParameter(ADDON_PARAM_KEY, {});
+  const { theme } = addonParams;
+  const [selected, setSelected] = useState(theme);
+
   const emit = useChannel({});
-  const addonParams: { files?: { [key:string]: any } } = useParameter(ADDON_PARAM_KEY, {});
+
+  useEffect(() => {
+    setSelected(theme || id);
+  }, [theme, id]);
 
   function handleChange(e: any) {
+    setSelected(e.target.value);
     emit('cssVariablesChange', { id: e.target.value });
   }
 
@@ -27,7 +38,7 @@ const Dropdown = () => {
     const { files } = addonParams;
 
     return (
-      <StyledSelect onChange={handleChange} defaultValue={id}>
+      <StyledSelect onChange={handleChange} value={selected}>
         {map(files, (value, key) => (
           <option key={key}>{key}</option>
         ))}

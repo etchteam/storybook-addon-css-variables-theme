@@ -27,25 +27,34 @@ function setCookie(cname: string, cvalue: string, exdays: number) {
   document.cookie = `${cname}=${cvalue};${expires};path=/`;
 }
 
-function handleStyleSwitch({ id, files }: { id: string, files: { [key:string]: any } }) {
+function handleStyleSwitch({
+  id,
+  files,
+  save,
+}: {
+  id: string,
+  files: { [key:string]: any },
+  save: boolean
+}) {
   addBrandStyles(id, files);
-  setCookie('cssVariables', id, 10);
+  if (save) setCookie('cssVariables', id, 10);
 }
 
 export default makeDecorator({
   name: 'CSS Variables Theme',
   parameterName: ADDON_PARAM_KEY,
   wrapper: (getStory, context, { parameters }) => {
-    const { files } = parameters;
+    const { files, theme } = parameters;
     const keys = Object.keys((files || {}));
     const channel = addons.getChannel();
     const cookieId = getCookie('cssVariables');
 
-    const brand = cookieId && keys.indexOf(cookieId) > -1 ? cookieId : keys[0];
+    const defaultTheme = cookieId && keys.indexOf(cookieId) > -1 ? cookieId : keys[0];
+    const themeToLoad = theme || defaultTheme;
 
-    handleStyleSwitch({ id: brand, files });
+    handleStyleSwitch({ id: themeToLoad, files, save: !theme });
 
-    channel.on('cssVariablesChange', ({ id }: { id: string }) => handleStyleSwitch({ id, files }));
+    channel.on('cssVariablesChange', ({ id }: { id: string }) => handleStyleSwitch({ id, files, save: true }));
 
     return getStory(context);
   },
