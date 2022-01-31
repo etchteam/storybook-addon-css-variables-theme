@@ -12,7 +12,7 @@
     "ts3.5/**/*"
   ],
   "scripts": {
-    "prepare": "babel ./src --out-dir ./dist",
+    "prepare": "babel --extensions .ts,.tsx ./src --out-dir ./dist",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
