@@ -1,0 +1,14 @@
+:root {
+  --color-black: #333;
+  --color-white: #fff;
+
+  --body-color: var(--color-black);
+
+  --button-primary-background: var(--color-black);
+  --button-primary-color: var(--color-white);
+  --button-secondary-background: transparent;
+  --button-secondary-color: var(--color-black);
+  --button-secondary-box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 0px 1px inset;
+
+  --header-border-color: var(--color-black);
+}
