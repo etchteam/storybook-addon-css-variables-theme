@@ -13,7 +13,7 @@
   ],
   "scripts": {
     "prepare": "babel --extensions .ts,.tsx ./src --out-dir ./dist",
-    "storybook": "start-storybook -p 6006",
+    "storybook": "start-storybook -p 6006 --no-manager-cache",
     "build-storybook": "build-storybook"
   },
   "repository": {
