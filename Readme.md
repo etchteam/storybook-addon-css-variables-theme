@@ -12,9 +12,11 @@ npm install @etchteam/storybook-addon-css-variables-theme --save-dev
 
 ## Configuration
 
-Create a file called `main.js` in your storybook config.
+### Step 1: Add the addon
 
-Add the following content to it:
+Create a file called `main.js` in your `.storybook` folder.
+
+Add the following code to it:
 
 ```js
 module.exports = {
@@ -22,16 +24,24 @@ module.exports = {
 };
 ```
 
-Next, create a file called `preview.js` in your storybook config.
+### Step 2: Include your CSS files
 
-You will need to import your style files with some some inline loader options. Specifically you will need to call `style-loader` with `?injectType=lazyStyleTag` to it doesn't run the CSS immediately. After than you can chain your preferred CSS/SCSS/Less/etc loaders.
+Create a file called `preview.js` in your `.storybook` folder.
+
+In this file you will need to import your style files using a loader. Here's an example of how to do this:
 
 ```js
-import light from '!!style-loader?injectType=lazyStyleTag!css-loader!../src/scss/light.css'
-import dark from '!!style-loader?injectType=lazyStyleTag!css-loader!../src/scss/dark.css'
+import light from '!!style-loader?injectType=lazyStyleTag!css-loader!../src/styles/light.css'
+import dark from '!!style-loader?injectType=lazyStyleTag!css-loader!../src/styles/dark.css'
 ```
 
-Import the decorator from the CSS Variables Theme addon
+This code calls `style-loader` with `?injectType=lazyStyleTag` so that it doesn't run the CSS immediately.
+
+You can swap out `css-loader` for your preferred SCSS/Less/etc loaders.
+
+### Step 3: Add the Decorator
+
+In the same `preview.js` file import the decorator from the CSS Variables Theme addon
 
 ```js
 import cssVariablesTheme from '@etchteam/storybook-addon-css-variables-theme'
@@ -54,9 +64,9 @@ export const parameters = {
 }
 ```
 
-### Set a specific theme for a story
+## Set a specific theme for a story
 
-Pass the theme key as the `theme` parameter on the story to default to a specific theme
+Pass the theme key as the `theme` parameter on the story to default to a specific theme:
 
 ```js
 export default {
