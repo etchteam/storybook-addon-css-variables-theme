@@ -21,13 +21,13 @@ const Dropdown = () => {
     theme?: string
   } = useParameter(ADDON_PARAM_KEY, {});
   const { theme } = addonParams;
-  const [selected, setSelected] = useState(theme);
+  const [selected, setSelected] = useState(theme || id);
 
   const emit = useChannel({});
 
   useEffect(() => {
     setSelected(theme || id);
-  }, [theme, id]);
+  }, [theme]);
 
   function handleChange(e: any) {
     setSelected(e.target.value);
