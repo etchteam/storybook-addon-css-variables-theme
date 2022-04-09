@@ -13,9 +13,10 @@ export const parameters = {
   },
   cssVariables: {
     files: {
-      light,
-      dark,
-    }
+      'Light Theme': light,
+      'Dark Theme': dark,
+    },
+    defaultTheme: 'Light Theme'
   }
 };
 

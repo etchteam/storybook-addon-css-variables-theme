@@ -1,13 +1,12 @@
 import addons, { makeDecorator } from '@storybook/addons';
 import getCookie from './getCookie';
 
-import { ADDON_PARAM_KEY } from './constants';
+import { ADDON_PARAM_KEY, CLEAR_LABEL } from './constants';
 
 let currentCSS: any = null;
 
 async function addBrandStyles(id: string, files: { [key:string]: any }) {
   const file = files[id];
-
   if (file) {
     file.use();
 
@@ -17,6 +16,10 @@ async function addBrandStyles(id: string, files: { [key:string]: any }) {
     }
 
     currentCSS = file;
+  }
+  if (currentCSS && id === CLEAR_LABEL) {
+    currentCSS.unuse();
+    currentCSS = null;
   }
 }
 

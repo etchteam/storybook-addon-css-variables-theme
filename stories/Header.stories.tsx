@@ -8,7 +8,7 @@ export default {
   component: Header,
   parameters: {
     cssVariables: {
-      theme: 'dark',
+      theme: 'Dark Theme',
     },
     docs: {
       description: {

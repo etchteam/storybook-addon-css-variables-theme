@@ -57,13 +57,25 @@ Then pass the CSS files to the addon via the exported parameters.
 export const parameters = {
   cssVariables: {
     files: {
-      light,
-      dark,
+      'Light Theme': light,
+      'Dark Theme': dark,
     }
   }
 }
 ```
+If a default theme should be selected from first load add 'defaultTheme' to the options.
 
+```js
+export const parameters = {
+  cssVariables: {
+    files: {
+      'Light Theme': light,
+      'Dark Theme': dark,
+    },
+    defaultTheme: 'Light Theme'
+  }
+}
+```
 ## Set a specific theme for a story
 
 Pass the theme key as the `theme` parameter on the story to default to a specific theme:
