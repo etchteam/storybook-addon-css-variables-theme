@@ -1,51 +1,102 @@
 import React, { useEffect, useState } from 'react';
 import { addons, types } from '@storybook/addons';
-import { useChannel, useParameter } from '@storybook/api';
 import { styled } from '@storybook/theming';
-import map from 'lodash/map';
+import { useChannel, useParameter } from '@storybook/api';
+import {
+  Icons,
+  IconButton,
+  WithTooltip,
+  TooltipLinkList,
+} from '@storybook/components';
 import getCookie from './getCookie';
+import { ADDON_ID, ADDON_PARAM_KEY, CLEAR_LABEL } from './constants';
 
-import { ADDON_ID, ADDON_PARAM_KEY } from './constants';
+type Files = {
+  [key: string]: any
+};
 
-const StyledSelect = styled.select`
-  align-self: center;
-  border-color: white;
-  border-radius: .25em;
-  padding: .125em .5em;
-`;
+type Params = {
+  files?: Files,
+  theme?: string,
+  defaultTheme?: string
+};
+
+const IconButtonWithLabel = styled(IconButton)(() => ({
+  display: 'inline-flex',
+  alignItems: 'center',
+}));
+const ActiveViewportLabel = styled.div<{}>(({ theme }) => ({
+  display: 'inline-block',
+  textDecoration: 'none',
+  padding: 10,
+  fontWeight: theme.typography.weight.bold,
+  fontSize: theme.typography.size.s2 - 1,
+  lineHeight: '1',
+  height: 40,
+  border: 'none',
+  borderTop: '3px solid transparent',
+  borderBottom: '3px solid transparent',
+  background: 'transparent',
+}));
 
 const Dropdown = () => {
   const id = getCookie('cssVariables');
-  const addonParams: {
-    files?: { [key:string]: any },
-    theme?: string
-  } = useParameter(ADDON_PARAM_KEY, {});
-  const { theme } = addonParams;
+  const addonParams: Params = useParameter(ADDON_PARAM_KEY, {});
+  const { theme, defaultTheme, files } = addonParams;
   const [selected, setSelected] = useState(theme || id);
 
   const emit = useChannel({});
 
   useEffect(() => {
-    setSelected(theme || id);
-  }, [theme]);
+    setSelected(theme || id || defaultTheme);
+  }, [theme, defaultTheme]);
 
-  function handleChange(e: any) {
-    setSelected(e.target.value);
-    emit('cssVariablesChange', { id: e.target.value });
+  function handleChange(onHide: () => void, value: string | null) {
+    const newValue = value.indexOf(CLEAR_LABEL) > -1 ? CLEAR_LABEL : value;
+    setSelected(newValue);
+    emit('cssVariablesChange', { id: newValue });
+    onHide();
   }
 
-  if (addonParams.files) {
-    const { files } = addonParams;
-
+  function toLink(value: string, active: boolean, onHide: () => void) {
+    return {
+      id: value,
+      title: !value ? CLEAR_LABEL : value,
+      onClick: () => handleChange(onHide, value),
+      active,
+    };
+  }
+  function generateLinks(items: Files, onHide: () => void) {
+    // eslint-disable-next-line max-len
+    const result: any[] = Object.keys(items).map((value) => toLink(value, value === selected, onHide));
+    if (selected !== CLEAR_LABEL) {
+      result.unshift(toLink(CLEAR_LABEL, false, onHide));
+    }
+    return result;
+  }
+  if (files) {
     return (
-      <StyledSelect onChange={handleChange} value={selected}>
-        {map(files, (value, key) => (
-          <option key={key}>{key}</option>
-        ))}
-      </StyledSelect>
+      <WithTooltip
+        placement="top"
+        trigger="click"
+        tooltip={({ onHide }) => (
+          <TooltipLinkList
+            links={generateLinks(files, onHide)}
+          />
+        )}
+        closeOnClick
+      >
+        <IconButtonWithLabel
+          key="css themes"
+          title="CSS custom properties themes"
+          active={Object.hasOwnProperty.call(files, selected)}
+        >
+          <Icons icon="paintbrush" />
+          { Object.hasOwnProperty.call(files, selected) ? (<ActiveViewportLabel title="selected css theme">{selected}</ActiveViewportLabel>) : null }
+        </IconButtonWithLabel>
+      </WithTooltip>
     );
   }
-
   return null;
 };
 
@@ -54,6 +105,6 @@ addons.register(ADDON_ID, () => {
     title: 'CSS Variables Theme',
     type: types.TOOL,
     match: ({ viewMode }) => viewMode === 'story' || viewMode === 'docs',
-    render: () => (<Dropdown />),
+    render: () => <Dropdown />,
   });
 });
