@@ -51,7 +51,7 @@ export default makeDecorator({
     const channel = addons.getChannel();
     const cookieId = getCookie('cssVariables');
     // eslint-disable-next-line max-len
-    const savedTheme = cookieId && (Object.hasOwn(files, cookieId) || cookieId === CLEAR_LABEL) ? cookieId : null;
+    const savedTheme = cookieId && (Object.hasOwnProperty.call(files, cookieId) || cookieId === CLEAR_LABEL) ? cookieId : null;
     const themeToLoad = theme || savedTheme || defaultTheme;
     handleStyleSwitch({ id: themeToLoad, files, save: !theme || !savedTheme });
     channel.on('cssVariablesChange', ({ id }: { id: string }) => handleStyleSwitch({ id, files, save: true }));

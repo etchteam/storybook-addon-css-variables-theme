@@ -89,10 +89,10 @@ const Dropdown = () => {
         <IconButtonWithLabel
           key="css themes"
           title="CSS custom properties themes"
-          active={Object.hasOwn(files, selected)}
+          active={Object.hasOwnProperty.call(files, selected)}
         >
           <Icons icon="paintbrush" />
-          { Object.hasOwn(files, selected) ? (<ActiveViewportLabel title="selected css theme">{selected}</ActiveViewportLabel>) : null }
+          { Object.hasOwnProperty.call(files, selected) ? (<ActiveViewportLabel title="selected css theme">{selected}</ActiveViewportLabel>) : null }
         </IconButtonWithLabel>
       </WithTooltip>
     );
