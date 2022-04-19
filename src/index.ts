@@ -47,16 +47,13 @@ export default makeDecorator({
   name: 'CSS Variables Theme',
   parameterName: ADDON_PARAM_KEY,
   wrapper: (getStory, context, { parameters }) => {
-    const { files, theme } = parameters;
-    const keys = Object.keys((files || {}));
+    const { files, theme, defaultTheme } = parameters;
     const channel = addons.getChannel();
     const cookieId = getCookie('cssVariables');
-
-    const defaultTheme = cookieId && keys.indexOf(cookieId) > -1 ? cookieId : keys[0];
-    const themeToLoad = theme || defaultTheme;
-
-    handleStyleSwitch({ id: themeToLoad, files, save: !theme });
-
+    // eslint-disable-next-line max-len
+    const savedTheme = cookieId && (Object.hasOwn(files, cookieId) || cookieId === CLEAR_LABEL) ? cookieId : null;
+    const themeToLoad = theme || savedTheme || defaultTheme;
+    handleStyleSwitch({ id: themeToLoad, files, save: !theme || !savedTheme });
     channel.on('cssVariablesChange', ({ id }: { id: string }) => handleStyleSwitch({ id, files, save: true }));
 
     return getStory(context);

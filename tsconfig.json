@@ -14,7 +14,7 @@
     "esModuleInterop": true,
     "target": "es5",
     "types": ["node", "webpack-env"],
-    "lib": ["es2017", "dom"]
+    "lib": ["esnext", "dom"]
   },
   "include": ["src/**/*", "stories/**/*"],
   "exclude": [
