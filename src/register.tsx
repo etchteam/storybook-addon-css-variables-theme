@@ -25,6 +25,7 @@ const IconButtonWithLabel = styled(IconButton)(() => ({
   display: 'inline-flex',
   alignItems: 'center',
 }));
+
 const ActiveViewportLabel = styled.div<{}>(({ theme }) => ({
   display: 'inline-block',
   textDecoration: 'none',
@@ -40,16 +41,17 @@ const ActiveViewportLabel = styled.div<{}>(({ theme }) => ({
 }));
 
 const Dropdown = () => {
-  const id = getCookie('cssVariables');
+  const cookieTheme = getCookie('cssVariables');
   const addonParams: Params = useParameter(ADDON_PARAM_KEY, {});
   const { theme, defaultTheme, files } = addonParams;
+  const id = files && Object.hasOwnProperty.call(files, cookieTheme) && cookieTheme;
   const [selected, setSelected] = useState(theme || id);
 
   const emit = useChannel({});
 
   useEffect(() => {
     setSelected(theme || id || defaultTheme);
-  }, [theme, defaultTheme]);
+  }, [theme, defaultTheme, id]);
 
   function handleChange(onHide: () => void, value: string | null) {
     const newValue = value.indexOf(CLEAR_LABEL) > -1 ? CLEAR_LABEL : value;
@@ -66,6 +68,7 @@ const Dropdown = () => {
       active,
     };
   }
+
   function generateLinks(items: Files, onHide: () => void) {
     // eslint-disable-next-line max-len
     const result: any[] = Object.keys(items).map((value) => toLink(value, value === selected, onHide));
@@ -74,6 +77,7 @@ const Dropdown = () => {
     }
     return result;
   }
+
   if (files) {
     return (
       <WithTooltip
@@ -92,7 +96,7 @@ const Dropdown = () => {
           active={Object.hasOwnProperty.call(files, selected)}
         >
           <Icons icon="paintbrush" />
-          { Object.hasOwnProperty.call(files, selected) ? (<ActiveViewportLabel title="selected css theme">{selected}</ActiveViewportLabel>) : null }
+          <ActiveViewportLabel title="Theme">{selected || 'No theme'}</ActiveViewportLabel>
         </IconButtonWithLabel>
       </WithTooltip>
     );

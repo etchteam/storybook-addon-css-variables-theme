@@ -16,7 +16,6 @@ export const parameters = {
       'Light Theme': light,
       'Dark Theme': dark,
     },
-    defaultTheme: 'Light Theme'
   }
 };
 
