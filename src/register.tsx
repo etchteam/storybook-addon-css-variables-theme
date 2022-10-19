@@ -44,15 +44,16 @@ const Dropdown = () => {
   const cookieTheme = getCookie('cssVariables');
   const addonParams: Params = useParameter(ADDON_PARAM_KEY, {});
   const { theme, defaultTheme, files } = addonParams;
-  const id =
-    files && Object.hasOwnProperty.call(files, cookieTheme) && cookieTheme;
+  const id = files && Object.hasOwnProperty.call(files, cookieTheme) && cookieTheme;
   const [selected, setSelected] = useState(theme || id);
 
   const emit = useChannel({});
 
   useEffect(() => {
-    setSelected(theme || id || defaultTheme);
-  }, [theme, defaultTheme, id]);
+    if (!selected) {
+      setSelected(theme || id || defaultTheme);
+    }
+  }, [selected, theme, defaultTheme, id]);
 
   function handleChange(onHide: () => void, value: string | null) {
     const newValue = value.indexOf(CLEAR_LABEL) > -1 ? CLEAR_LABEL : value;
@@ -72,9 +73,7 @@ const Dropdown = () => {
 
   function generateLinks(items: Files, onHide: () => void) {
     // eslint-disable-next-line max-len
-    const result: any[] = Object.keys(items).map((value) =>
-      toLink(value, value === selected, onHide),
-    );
+    const result: any[] = Object.keys(items).map((value) => toLink(value, value === selected, onHide));
     if (selected !== CLEAR_LABEL && !defaultTheme) {
       result.unshift(toLink(CLEAR_LABEL, false, onHide));
     }
