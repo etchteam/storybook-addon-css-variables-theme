@@ -1,7 +1,7 @@
 import addons, { makeDecorator } from '@storybook/addons';
 import getCookie from './getCookie';
 
-import { ADDON_PARAM_KEY, CLEAR_LABEL } from './constants';
+import { ADDON_PARAM_KEY, CLEAR_LABEL, EVENT_NAME } from './constants';
 
 let currentCSS: any = null;
 
@@ -40,7 +40,13 @@ function handleStyleSwitch({
   save: boolean
 }) {
   addBrandStyles(id, files);
-  if (save) setCookie('cssVariables', id, 10);
+
+  if (save) {
+    setCookie('cssVariables', id, 10);
+  }
+
+  const customEvent = new CustomEvent(EVENT_NAME, { detail: { theme: id } });
+  document?.dispatchEvent(customEvent);
 }
 
 export default makeDecorator({

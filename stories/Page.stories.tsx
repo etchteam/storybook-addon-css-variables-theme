@@ -9,7 +9,18 @@ export default {
   component: Page,
 } as ComponentMeta<typeof Page>;
 
-const Template: ComponentStory<typeof Page> = (args) => <Page {...args} />;
+const Template: ComponentStory<typeof Page> = (args) => {
+  document.addEventListener(
+    'storybookcssvariables:theme:change',
+    (event: CustomEvent) => {
+      console.info(`The theme changed to ${event?.detail?.theme}`);
+    },
+  );
+
+  return (
+    <Page {...args} />
+  );
+};
 
 export const LoggedIn = Template.bind({});
 LoggedIn.args = {
