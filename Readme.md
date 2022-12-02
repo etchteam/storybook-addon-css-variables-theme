@@ -76,7 +76,10 @@ export const parameters = {
   }
 }
 ```
-## Set a specific theme for a story
+
+## How to
+
+### Set a specific theme for a story
 
 Pass the theme key as the `theme` parameter on the story to default to a specific theme:
 
@@ -91,6 +94,21 @@ export default {
   }
 };
 ```
+
+### Get the currently enabled theme within stories
+
+Watch the custom `storybookcssvariables:theme:change` event on the `document`.
+
+```js
+document.addEventListener(
+  'storybookcssvariables:theme:change',
+  (event: CustomEvent) => {
+    console.info(`The theme changed to ${event?.detail?.theme}`);
+  },
+);
+```
+
+---
 
 Made with ☕ at [Etch](https://etch.co)
 
