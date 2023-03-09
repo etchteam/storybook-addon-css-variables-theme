@@ -1,6 +1,6 @@
 {
   "name": "@etchteam/storybook-addon-css-variables-theme",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "Switch CSS files to change themes",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -41,8 +41,8 @@
   },
   "homepage": "https://github.com/etchteam/storybook-addon-css-variables-theme#readme",
   "peerDependencies": {
-    "react": "^16.8.0 || ^17.0.0 || ^18.0.0",
-    "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0"
+    "react": ">=16",
+    "react-dom": ">=16"
   },
   "dependencies": {
     "@storybook/addons": "^7.0.0-beta.49",
