@@ -39,6 +39,8 @@ This code calls `style-loader` with `?injectType=lazyStyleTag` so that it doesn'
 
 You can swap out `css-loader` for your preferred SCSS/Less/etc loaders.
 
+Any loaders used here will need to be installed in your project: `npm i -D style-loader css-loader`
+
 ### Step 3: Add the Decorator
 
 In the same `preview.js` file import the decorator from the CSS Variables Theme addon
