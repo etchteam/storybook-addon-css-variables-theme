@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { addons, types } from '@storybook/addons';
 import { styled } from '@storybook/theming';
 import { useChannel, useParameter } from '@storybook/api';
-import queryString from 'query-string';
 import {
   Icons,
   IconButton,
@@ -50,21 +49,11 @@ const Dropdown = () => {
 
   const emit = useChannel({});
 
-  const parsed = queryString.parse(window.location.search);
-  const stringy = queryString.stringify(parsed);
-  let urlTheme = '';
-  if (stringy.indexOf('theme=') > -1) {
-    // eslint-disable-next-line prefer-destructuring
-    urlTheme = stringy.split('theme=')[1];
-    // eslint-disable-next-line prefer-destructuring
-    urlTheme = `${urlTheme.split('--')[0]} ${urlTheme.split('--')[1]}`;
-  }
-
   useEffect(() => {
     if (!selected) {
-      setSelected(urlTheme || theme || id || defaultTheme);
+      setSelected(theme || id || defaultTheme);
     }
-  }, [selected, urlTheme, theme, defaultTheme, id]);
+  }, [selected, theme, defaultTheme, id]);
 
   function handleChange(onHide: () => void, value: string | null) {
     const newValue = value.indexOf(CLEAR_LABEL) > -1 ? CLEAR_LABEL : value;
