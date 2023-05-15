@@ -60,7 +60,6 @@ export default makeDecorator({
     // eslint-disable-next-line max-len
     const savedTheme = cookieId && (Object.hasOwnProperty.call(files, cookieId) || cookieId === CLEAR_LABEL) ? cookieId : null;
     const parsed = queryString.parse(window.location.search);
-    console.log('parsed', parsed);
     let urlTheme: string | undefined;
     if (parsed.theme) {
       if (!Array.isArray(parsed.theme)) {
