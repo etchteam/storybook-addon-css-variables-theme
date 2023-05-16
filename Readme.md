@@ -113,8 +113,7 @@ document.addEventListener(
 ### Set a Theme by Query String
 
 Pass the theme to the url as a query by adding &theme=mytheme to the url
-If multi word theme query is &theme=my--theme
-Spacing is done by --
+If multi word theme query is &theme=my%20theme
 
 ---
 

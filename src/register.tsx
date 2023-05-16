@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { addons, types } from '@storybook/addons';
 import { styled } from '@storybook/theming';
 import { useChannel, useParameter } from '@storybook/api';
+import queryString from 'query-string';
 import {
   Icons,
   IconButton,
@@ -49,11 +50,18 @@ const Dropdown = () => {
 
   const emit = useChannel({});
 
+  const parsed = queryString.parse(window.location.search);
+  let urlTheme: string | undefined;
+  if (parsed.theme) {
+    if (!Array.isArray(parsed.theme)) {
+      urlTheme = parsed.theme;
+    }
+  }
   useEffect(() => {
     if (!selected) {
-      setSelected(theme || id || defaultTheme);
+      setSelected(urlTheme || theme || id || defaultTheme);
     }
-  }, [selected, theme, defaultTheme, id]);
+  }, [selected, urlTheme, theme, defaultTheme, id]);
 
   function handleChange(onHide: () => void, value: string | null) {
     const newValue = value.indexOf(CLEAR_LABEL) > -1 ? CLEAR_LABEL : value;

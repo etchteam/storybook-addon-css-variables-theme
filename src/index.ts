@@ -63,8 +63,7 @@ export default makeDecorator({
     let urlTheme: string | undefined;
     if (parsed.theme) {
       if (!Array.isArray(parsed.theme)) {
-        const parts = parsed.theme.split('--');
-        urlTheme = `${parts[0]} ${parts[1]}`;
+        urlTheme = parsed.theme;
       }
     }
     const themeToLoad = urlTheme || theme || savedTheme || defaultTheme;
