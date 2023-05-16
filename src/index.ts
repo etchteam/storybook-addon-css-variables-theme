@@ -1,4 +1,5 @@
 import { addons, makeDecorator } from '@storybook/addons';
+import queryString from 'query-string';
 import getCookie from './getCookie';
 
 import { ADDON_PARAM_KEY, CLEAR_LABEL, EVENT_NAME } from './constants';
@@ -58,7 +59,14 @@ export default makeDecorator({
     const cookieId = getCookie('cssVariables');
     // eslint-disable-next-line max-len
     const savedTheme = cookieId && (Object.hasOwnProperty.call(files, cookieId) || cookieId === CLEAR_LABEL) ? cookieId : null;
-    const themeToLoad = theme || savedTheme || defaultTheme;
+    const parsed = queryString.parse(window.location.search);
+    let urlTheme: string | undefined;
+    if (parsed.theme) {
+      if (!Array.isArray(parsed.theme)) {
+        urlTheme = parsed.theme;
+      }
+    }
+    const themeToLoad = urlTheme || theme || savedTheme || defaultTheme;
     handleStyleSwitch({ id: themeToLoad, files, save: !theme || !savedTheme });
     channel.on('cssVariablesChange', ({ id }: { id: string }) => handleStyleSwitch({ id, files, save: true }));
 
