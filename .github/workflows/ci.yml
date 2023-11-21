@@ -14,7 +14,10 @@ jobs:
           node-version-file: .nvmrc
           cache: npm
       - run: npm ci
-      - run: npx --no -- eslint .
+      - name: Lint JS
+        run: npx --no -- eslint .
+      - name: Lint CSS
+        run: npx --no -- stylelint .
   build:
     runs-on: ubuntu-latest
     steps:

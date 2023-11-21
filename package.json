@@ -67,6 +67,7 @@
     "@commitlint/cli": "^18.4.3",
     "@commitlint/config-conventional": "^18.4.3",
     "@etchteam/eslint-config": "^1.7.1",
+    "@etchteam/stylelint-config": "^1.5.0",
     "@storybook/addon-essentials": "^7.0.0-beta.49",
     "@storybook/react": "^7.0.0-beta.49",
     "@storybook/react-webpack5": "^7.0.0-beta.49",
@@ -82,6 +83,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "storybook": "^7.0.0-beta.49",
+    "stylelint": "^15.11.0",
     "typescript": "4.3.2"
   },
   "publishConfig": {
