@@ -8,7 +8,7 @@
   --button-primary-color: var(--color-black);
   --button-secondary-background: transparent;
   --button-secondary-color: var(--color-white);
-  --button-secondary-box-shadow: rgba(255, 255, 255, 0.15) 0px 0px 0px 1px;
+  --button-secondary-box-shadow: rgba(255, 255, 255, 0.15) 0 0 0 1px;
 
   --header-border-color: var(--color-white);
 }

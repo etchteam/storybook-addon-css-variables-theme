@@ -1,16 +1,17 @@
-import React, { useEffect, useState } from 'react';
 import { addons, types } from '@storybook/addons';
-import { styled } from '@storybook/theming';
 import { useChannel, useParameter } from '@storybook/api';
-import queryString from 'query-string';
 import {
   Icons,
   IconButton,
   WithTooltip,
   TooltipLinkList,
 } from '@storybook/components';
-import getCookie from './getCookie';
+import { styled } from '@storybook/theming';
+import queryString from 'query-string';
+import React, { useEffect, useState } from 'react';
+
 import { ADDON_ID, ADDON_PARAM_KEY, CLEAR_LABEL } from './constants';
+import getCookie from './getCookie';
 
 type Files = {
   [key: string]: any;
@@ -27,7 +28,7 @@ const IconButtonWithLabel = styled(IconButton)(() => ({
   alignItems: 'center',
 }));
 
-const ActiveViewportLabel = styled.div<{}>(({ theme }) => ({
+const ActiveViewportLabel = styled.div(({ theme }) => ({
   display: 'inline-block',
   textDecoration: 'none',
   padding: 10,
@@ -45,7 +46,8 @@ const Dropdown = () => {
   const cookieTheme = getCookie('cssVariables');
   const addonParams: Params = useParameter(ADDON_PARAM_KEY, {});
   const { theme, defaultTheme, files } = addonParams;
-  const id = files && Object.hasOwnProperty.call(files, cookieTheme) && cookieTheme;
+  const id =
+    files && Object.hasOwnProperty.call(files, cookieTheme) && cookieTheme;
   const [selected, setSelected] = useState(theme || id);
 
   const emit = useChannel({});
@@ -81,7 +83,9 @@ const Dropdown = () => {
 
   function generateLinks(items: Files, onHide: () => void) {
     // eslint-disable-next-line max-len
-    const result: any[] = Object.keys(items).map((value) => toLink(value, value === selected, onHide));
+    const result: any[] = Object.keys(items).map((value) =>
+      toLink(value, value === selected, onHide),
+    );
     if (selected !== CLEAR_LABEL && !defaultTheme) {
       result.unshift(toLink(CLEAR_LABEL, false, onHide));
     }

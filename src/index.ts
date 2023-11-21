@@ -1,12 +1,12 @@
 import { addons, makeDecorator } from '@storybook/addons';
 import queryString from 'query-string';
-import getCookie from './getCookie';
 
 import { ADDON_PARAM_KEY, CLEAR_LABEL, EVENT_NAME } from './constants';
+import getCookie from './getCookie';
 
 let currentCSS: any = null;
 
-async function addBrandStyles(id: string, files: { [key:string]: any }) {
+async function addBrandStyles(id: string, files: { [key: string]: any }) {
   const file = files[id];
   if (file) {
     file.use();
@@ -26,7 +26,7 @@ async function addBrandStyles(id: string, files: { [key:string]: any }) {
 
 function setCookie(cname: string, cvalue: string, exdays: number) {
   const d = new Date();
-  d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+  d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
   const expires = `expires=${d.toUTCString()}`;
   document.cookie = `${cname}=${cvalue};${expires};path=/`;
 }
@@ -36,9 +36,9 @@ function handleStyleSwitch({
   files,
   save,
 }: {
-  id: string,
-  files: { [key:string]: any },
-  save: boolean
+  id: string;
+  files: { [key: string]: any };
+  save: boolean;
 }) {
   addBrandStyles(id, files);
 
@@ -58,7 +58,11 @@ export default makeDecorator({
     const channel = addons.getChannel();
     const cookieId = getCookie('cssVariables');
     // eslint-disable-next-line max-len
-    const savedTheme = cookieId && (Object.hasOwnProperty.call(files, cookieId) || cookieId === CLEAR_LABEL) ? cookieId : null;
+    const savedTheme =
+      cookieId &&
+      (Object.hasOwnProperty.call(files, cookieId) || cookieId === CLEAR_LABEL)
+        ? cookieId
+        : null;
     const parsed = queryString.parse(window.location.search);
     let urlTheme: string | undefined;
     if (parsed.theme) {
@@ -68,7 +72,9 @@ export default makeDecorator({
     }
     const themeToLoad = urlTheme || theme || savedTheme || defaultTheme;
     handleStyleSwitch({ id: themeToLoad, files, save: !theme || !savedTheme });
-    channel.on('cssVariablesChange', ({ id }: { id: string }) => handleStyleSwitch({ id, files, save: true }));
+    channel.on('cssVariablesChange', ({ id }: { id: string }) =>
+      handleStyleSwitch({ id, files, save: true }),
+    );
 
     return getStory(context);
   },
