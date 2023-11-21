@@ -52,10 +52,7 @@
     "@storybook/core-events": "^7.0.0-beta.49",
     "@storybook/theming": "^7.0.0-beta.49",
     "core-js": "^3.0.1",
-    "lodash": "^4.17.21",
-    "memoizerific": "^1.11.3",
-    "query-string": "^8.1.0",
-    "util-deprecate": "^1.0.2"
+    "query-string": "^8.1.0"
   },
   "devDependencies": {
     "@babel/cli": "7.14.5",
@@ -71,9 +68,7 @@
     "@storybook/addon-essentials": "^7.0.0-beta.49",
     "@storybook/react": "^7.0.0-beta.49",
     "@storybook/react-webpack5": "^7.0.0-beta.49",
-    "@types/lodash": "^4.14.170",
     "@types/node": "15.12.2",
-    "@types/util-deprecate": "^1.0.0",
     "@types/webpack-env": "1.16.0",
     "babel-loader": "^8.2.3",
     "eslint": "^8.54.0",
