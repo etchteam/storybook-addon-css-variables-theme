@@ -28,7 +28,7 @@ const IconButtonWithLabel = styled(IconButton)(() => ({
   alignItems: 'center',
 }));
 
-const ActiveViewportLabel = styled.div<{}>(({ theme }) => ({
+const ActiveViewportLabel = styled.div(({ theme }) => ({
   display: 'inline-block',
   textDecoration: 'none',
   padding: 10,

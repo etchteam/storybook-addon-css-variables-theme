@@ -4,7 +4,7 @@ import Header from './Header';
 import './page.css';
 
 interface PageProps {
-  readonly user?: {};
+  readonly user?: unknown;
   readonly onLogin: () => void;
   readonly onLogout: () => void;
   readonly onCreateAccount: () => void;

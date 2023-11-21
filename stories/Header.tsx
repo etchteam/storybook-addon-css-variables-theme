@@ -4,7 +4,7 @@ import Button from './Button';
 import './header.css';
 
 interface HeaderProps {
-  readonly user?: {};
+  readonly user?: unknown;
   readonly onLogin: () => void;
   readonly onLogout: () => void;
   readonly onCreateAccount: () => void;
