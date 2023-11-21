@@ -64,6 +64,7 @@ section .tip-wrapper svg {
   width: 12px;
 }
 
+/* stylelint-disable-next-line selector-max-compound-selectors */
 section .tip-wrapper svg path {
   fill: #1ea7fd;
 }
