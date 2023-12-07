@@ -1,5 +1,8 @@
+/* eslint-disable react-hooks/rules-of-hooks */
+
 import { addons, makeDecorator } from '@storybook/addons';
 import queryString from 'query-string';
+import { useState } from 'react';
 
 import { ADDON_PARAM_KEY, CLEAR_LABEL, EVENT_NAME } from './constants';
 import getCookie from './getCookie';
@@ -53,6 +56,7 @@ function handleStyleSwitch({
 export default makeDecorator({
   name: 'CSS Variables Theme',
   parameterName: ADDON_PARAM_KEY,
+
   wrapper: (getStory, context, { parameters }) => {
     const { files, theme, defaultTheme } = parameters;
     const channel = addons.getChannel();
@@ -71,11 +75,14 @@ export default makeDecorator({
       }
     }
     const themeToLoad = urlTheme || theme || savedTheme || defaultTheme;
-    handleStyleSwitch({ id: themeToLoad, files, save: !theme || !savedTheme });
-    channel.on('cssVariablesChange', ({ id }: { id: string }) =>
-      handleStyleSwitch({ id, files, save: true }),
-    );
+    const [themeId, setThemeId] = useState(themeToLoad);
 
-    return getStory(context);
+    handleStyleSwitch({ id: themeToLoad, files, save: !theme || !savedTheme });
+    channel.on('cssVariablesChange', ({ id }: { id: string }) => {
+      handleStyleSwitch({ id, files, save: true });
+      setThemeId(id);
+    });
+
+    return getStory({ ...context, themeId });
   },
 });

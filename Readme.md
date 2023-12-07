@@ -99,7 +99,17 @@ export default {
 
 ### Get the currently enabled theme within stories
 
-Watch the custom `storybookcssvariables:theme:change` event on the `document`.
+You can access the currently set theme from the context object provided by storybook as the second parameter.
+
+```js
+
+const Template: ComponentStory<typeof Button> = (args, context) => (
+  <Button {...args}>{context.themeId}</Button>
+);
+
+```
+
+Alternatively watch the custom `storybookcssvariables:theme:change` event on the `document`.
 
 ```js
 document.addEventListener(
@@ -110,10 +120,12 @@ document.addEventListener(
 );
 ```
 
+
 ### Set a Theme by Query String
 
 Pass the theme to the url as a query by adding `&theme=mytheme` to the url.
 If multi word theme query is `&theme=my%20theme`
+
 
 ---
 
