@@ -101,7 +101,7 @@ export default {
 
 You can access the currently set theme from the context object provided by storybook as the second parameter.
 
-```stories
+```js
 
 const Template: ComponentStory<typeof Button> = (args, context) => (
   <Button {...args}>{context.themeId}</Button>
