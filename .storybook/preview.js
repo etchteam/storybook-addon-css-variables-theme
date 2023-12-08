@@ -22,3 +22,7 @@ export const parameters = {
 export const decorators = [
   cssVariablesTheme,
 ];
+
+export const globals = {
+  cssVariables: null,
+};

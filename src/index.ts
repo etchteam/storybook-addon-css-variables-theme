@@ -1,8 +1,4 @@
-/* eslint-disable react-hooks/rules-of-hooks */
-
 import { addons, makeDecorator } from '@storybook/addons';
-import queryString from 'query-string';
-import { useState } from 'react';
 
 import { ADDON_PARAM_KEY, CLEAR_LABEL, EVENT_NAME } from './constants';
 import getCookie from './getCookie';
@@ -59,6 +55,7 @@ export default makeDecorator({
 
   wrapper: (getStory, context, { parameters }) => {
     const { files, theme, defaultTheme } = parameters;
+    const globalsTheme = context.globals.cssVariables;
     const channel = addons.getChannel();
     const cookieId = getCookie('cssVariables');
     // eslint-disable-next-line max-len
@@ -67,22 +64,14 @@ export default makeDecorator({
       (Object.hasOwnProperty.call(files, cookieId) || cookieId === CLEAR_LABEL)
         ? cookieId
         : null;
-    const parsed = queryString.parse(window.location.search);
-    let urlTheme: string | undefined;
-    if (parsed.theme) {
-      if (!Array.isArray(parsed.theme)) {
-        urlTheme = parsed.theme;
-      }
-    }
-    const themeToLoad = urlTheme || theme || savedTheme || defaultTheme;
-    const [themeId, setThemeId] = useState(themeToLoad);
+
+    const themeToLoad = globalsTheme || theme || savedTheme || defaultTheme;
 
     handleStyleSwitch({ id: themeToLoad, files, save: !theme || !savedTheme });
     channel.on('cssVariablesChange', ({ id }: { id: string }) => {
       handleStyleSwitch({ id, files, save: true });
-      setThemeId(id);
     });
 
-    return getStory({ ...context, themeId });
+    return getStory(context);
   },
 });

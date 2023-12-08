@@ -123,9 +123,10 @@ document.addEventListener(
 
 ### Set a Theme by Query String
 
-Pass the theme to the url as a query by adding `&theme=mytheme` to the url.
-If multi word theme query is `&theme=my%20theme`
+Themes are stored in storybook globals.
 
+Pass the theme to the url as a query by adding `&globals=cssVariables:mytheme` to the url.
+If multi word theme query is `&globals=cssVariables:my+theme`
 
 ---
 
