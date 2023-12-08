@@ -1,5 +1,5 @@
 import { addons, types } from '@storybook/addons';
-import { useChannel, useParameter } from '@storybook/api';
+import { useChannel, useParameter, useGlobals } from '@storybook/api';
 import {
   Icons,
   IconButton,
@@ -7,8 +7,7 @@ import {
   TooltipLinkList,
 } from '@storybook/components';
 import { styled } from '@storybook/theming';
-import queryString from 'query-string';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 
 import { ADDON_ID, ADDON_PARAM_KEY, CLEAR_LABEL } from './constants';
 import getCookie from './getCookie';
@@ -43,27 +42,27 @@ const ActiveViewportLabel = styled.div(({ theme }) => ({
 }));
 
 const Dropdown = () => {
+  const [globals, updateGlobals] = useGlobals();
   const cookieTheme = getCookie('cssVariables');
   const addonParams: Params = useParameter(ADDON_PARAM_KEY, {});
   const { theme, defaultTheme, files } = addonParams;
   const id =
     files && Object.hasOwnProperty.call(files, cookieTheme) && cookieTheme;
-  const [selected, setSelected] = useState(theme || id);
+
+  const selected = globals.cssVariables || theme || id;
+  const setSelected = (value: string | null) => {
+    updateGlobals({
+      cssVariables: value,
+    });
+  };
 
   const emit = useChannel({});
 
-  const parsed = queryString.parse(window.location.search);
-  let urlTheme: string | undefined;
-  if (parsed.theme) {
-    if (!Array.isArray(parsed.theme)) {
-      urlTheme = parsed.theme;
-    }
-  }
   useEffect(() => {
     if (!selected) {
-      setSelected(urlTheme || theme || id || defaultTheme);
+      setSelected(theme || id || defaultTheme);
     }
-  }, [selected, urlTheme, theme, defaultTheme, id]);
+  }, [selected, theme, defaultTheme, id]);
 
   function handleChange(onHide: () => void, value: string | null) {
     const newValue = value.indexOf(CLEAR_LABEL) > -1 ? CLEAR_LABEL : value;
