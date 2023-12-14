@@ -3,8 +3,8 @@ export function managerEntries(entry: any[] = []) {
   return [...entry, require.resolve('../register')];
 }
 
-export const previewAnnotations = (entry: any[] = []) => {
+export function previewAnnotations(entry: any[] = []) {
   return [...entry, require.resolve('../preview')];
-};
+}
 
 module.exports = { managerEntries, previewAnnotations };
