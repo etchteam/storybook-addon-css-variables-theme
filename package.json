@@ -1,6 +1,6 @@
 {
   "name": "@etchteam/storybook-addon-css-variables-theme",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "description": "Switch CSS files to change themes",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -8,7 +8,6 @@
     "dist/**/*",
     "README.md",
     "register.js",
-    "preset.js",
     "*.d.ts",
     "ts3.5/**/*"
   ],
