@@ -17,7 +17,7 @@ interface ButtonProps {
   /**
    * Button contents
    */
-  readonly label: string;
+  readonly children: React.ReactNode;
   /**
    * Optional click handler
    */
@@ -31,7 +31,7 @@ const Button = ({
   primary = false,
   size = 'medium',
   backgroundColor,
-  label,
+  children,
   ...props
 }: ButtonProps) => {
   const mode = primary
@@ -46,7 +46,7 @@ const Button = ({
       style={{ backgroundColor }}
       {...props}
     >
-      {label}
+      {children}
     </button>
   );
 };

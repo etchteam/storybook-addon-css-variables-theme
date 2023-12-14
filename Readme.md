@@ -20,7 +20,7 @@ Add the following code to it:
 
 ```js
 module.exports = {
-  addons: ['@etchteam/storybook-addon-css-variables-theme'],
+  addons: ['@etchteam/storybook-addon-css-variables-theme/preset'],
 };
 ```
 
