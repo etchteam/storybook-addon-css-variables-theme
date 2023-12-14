@@ -1,1 +1,1 @@
-require('./dist/preset');
+export * from './dist/preset';
