@@ -72,7 +72,6 @@ const Dropdown = () => {
         tooltip={({ onHide }: any) => (
           <TooltipLinkList links={generateLinks(files, onHide)} />
         )}
-        closeOnClick
       >
         <IconButtonWithLabel
           key="css themes"
