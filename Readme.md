@@ -28,7 +28,9 @@ module.exports = {
 
 Create a file called `preview.js` in your `.storybook` folder.
 
-In this file you will need to import your style files using a loader. Here's an example of how to do this:
+In this file you will need to import your style files. Here are examples of how to do this for different builders:
+
+#### Webpack builder
 
 ```js
 import light from '!!style-loader?injectType=lazyStyleTag!css-loader!../src/styles/light.css'
@@ -40,6 +42,14 @@ This code calls `style-loader` with `?injectType=lazyStyleTag` so that it doesn'
 You can swap out `css-loader` for your preferred SCSS/Less/etc loaders.
 
 Any loaders used here will need to be installed in your project: `npm i -D style-loader css-loader`
+
+#### Vite builder
+
+```js
+import light from '../src/styles/light.css?inline'
+import dark from '../src/styles/dark.css?inline'
+```
+The `?inline` disables automatic injection so that the CSS is not run immediately.
 
 ### Step 3: Add the Decorator
 
