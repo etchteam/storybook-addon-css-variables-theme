@@ -1,11 +1,16 @@
-import { addons, types } from '@storybook/addons';
-import { useChannel, useParameter, useGlobals } from '@storybook/api';
 import {
-  Icons,
   IconButton,
   WithTooltip,
   TooltipLinkList,
 } from '@storybook/components';
+import { PaintBrushIcon } from '@storybook/icons';
+import {
+  useChannel,
+  useParameter,
+  useGlobals,
+  addons,
+  types,
+} from '@storybook/manager-api';
 import { styled } from '@storybook/theming';
 import React, { useEffect } from 'react';
 
@@ -106,7 +111,7 @@ const Dropdown = () => {
           title="CSS custom properties themes"
           active={Object.hasOwnProperty.call(files, selected)}
         >
-          <Icons icon="paintbrush" />
+          <PaintBrushIcon />
           <ActiveViewportLabel title="Theme">
             {selected || 'No theme'}
           </ActiveViewportLabel>
