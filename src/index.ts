@@ -1,14 +1,15 @@
 import { addons, makeDecorator } from '@storybook/preview-api';
 
 import { ADDON_PARAM_KEY, CLEAR_LABEL } from './constants';
-import { getCookie, handleStyleSwitch } from './helpers';
+import { getCookie, handleStyleSwitch, transformFiles } from './helpers';
 
 export default makeDecorator({
   name: 'CSS Variables Theme',
   parameterName: ADDON_PARAM_KEY,
 
   wrapper: (getStory, context, { parameters }) => {
-    const { files, theme, defaultTheme } = parameters;
+    const { theme, defaultTheme } = parameters;
+    const files = transformFiles(parameters.files);
     const globalsTheme = context.globals.cssVariables;
     const channel = addons.getChannel();
     const cookieId = getCookie('cssVariables');

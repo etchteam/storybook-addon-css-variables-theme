@@ -1,4 +1,7 @@
+import { global } from '@storybook/global';
+
 import { CLEAR_LABEL, EVENT_NAME } from './constants';
+import { Files } from './types';
 
 export function getCookie(cname: string) {
   const name = `${cname}=`;
@@ -50,7 +53,7 @@ export function handleStyleSwitch({
   save,
 }: {
   id: string;
-  files: { [key: string]: any };
+  files: Files;
   save: boolean;
 }) {
   addBrandStyles(id, files);
@@ -62,3 +65,52 @@ export function handleStyleSwitch({
   const customEvent = new CustomEvent(EVENT_NAME, { detail: { theme: id } });
   document?.dispatchEvent(customEvent);
 }
+
+export function transformFiles(files: Files) {
+  const filesKeys = Object.keys(files);
+
+  if (
+    filesKeys.every(function (key) {
+      return typeof files[key] !== 'string';
+    })
+  ) {
+    return files;
+  }
+
+  return filesKeys.reduce<Files>(function (acc, curr) {
+    const id = curr;
+    const css = files[id];
+    acc[curr] = {
+      use: () => addOutlineStyles(id, css),
+      unuse: () => clearStyles(id),
+    };
+    return acc;
+  }, {});
+}
+
+export const clearStyles = (selector: string | string[]) => {
+  const selectors = Array.isArray(selector) ? selector : [selector];
+  selectors.forEach(clearStyle);
+};
+
+const clearStyle = (input: string | string[]) => {
+  const selector = typeof input === 'string' ? input : input.join('');
+  const element = global.document.getElementById(selector);
+  if (element && element.parentElement) {
+    element.parentElement.removeChild(element);
+  }
+};
+
+export const addOutlineStyles = (selector: string, css: string) => {
+  const existingStyle = global.document.getElementById(selector);
+  if (existingStyle) {
+    if (existingStyle.innerHTML !== css) {
+      existingStyle.innerHTML = css;
+    }
+  } else {
+    const style = global.document.createElement('style');
+    style.setAttribute('id', selector);
+    style.innerHTML = css;
+    global.document.head.appendChild(style);
+  }
+};
