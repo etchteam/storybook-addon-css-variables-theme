@@ -79,36 +79,30 @@ export function transformFiles(files: Files) {
     const id = curr;
     const css = files[id];
     acc[curr] = {
-      use: () => addOutlineStyles(id, css),
-      unuse: () => clearStyles(id),
+      use: () => addStyle(id, css),
+      unuse: () => clearStyle(id),
     };
     return acc;
   }, {});
 }
 
-export const clearStyles = (selector: string | string[]) => {
-  const selectors = Array.isArray(selector) ? selector : [selector];
-  selectors.forEach(clearStyle);
-};
-
-const clearStyle = (input: string | string[]) => {
-  const selector = typeof input === 'string' ? input : input.join('');
-  const element = document.getElementById(selector);
+const clearStyle = (id: string) => {
+  const element = document.getElementById(id);
   if (element && element.parentElement) {
     element.parentElement.removeChild(element);
   }
 };
 
-export const addOutlineStyles = (selector: string, css: string) => {
-  const existingStyle = document.getElementById(selector);
-  if (existingStyle) {
-    if (existingStyle.innerHTML !== css) {
-      existingStyle.innerHTML = css;
-    }
+export const addStyle = (id: string, css: string) => {
+  const cssTextNode = document.createTextNode(css);
+  const existingStyle = document.getElementById(id);
+  if (existingStyle && existingStyle.innerHTML !== css) {
+    existingStyle.appendChild(cssTextNode);
   } else {
     const style = document.createElement('style');
-    style.setAttribute('id', selector);
-    style.innerHTML = css;
-    document.head.appendChild(style);
+    const head = document.head || document.getElementsByTagName('head')[0];
+    style.setAttribute('id', id);
+    head.appendChild(style);
+    style.appendChild(cssTextNode);
   }
 };
