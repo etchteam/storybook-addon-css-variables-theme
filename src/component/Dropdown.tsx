@@ -4,12 +4,11 @@ import { useChannel, useParameter, useGlobals } from '@storybook/manager-api';
 import React, { useEffect, useCallback } from 'react';
 
 import { ADDON_PARAM_KEY, CLEAR_LABEL } from '../constants';
+import { getCookie } from '../helpers';
+import { Files, Params } from '../types';
 
 import ActiveViewportLabel from './ActiveViewportLabel';
 import IconButtonWithLabel from './IconButtonWithLabel';
-
-import { getCookie } from 'src/helpers';
-import { Files, Params } from 'src/types';
 
 const Dropdown = () => {
   const [globals, updateGlobals] = useGlobals();
