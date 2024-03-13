@@ -1,60 +1,15 @@
-import { addons, makeDecorator } from '@storybook/addons';
+import { addons, makeDecorator } from '@storybook/preview-api';
 
-import { ADDON_PARAM_KEY, CLEAR_LABEL, EVENT_NAME } from './constants';
-import getCookie from './getCookie';
-
-let currentCSS: any = null;
-
-async function addBrandStyles(id: string, files: { [key: string]: any }) {
-  const file = files[id];
-  if (file) {
-    file.use();
-
-    // If we've got a CSS file in use, turn it off
-    if (currentCSS) {
-      currentCSS.unuse();
-    }
-
-    currentCSS = file;
-  }
-  if (currentCSS && id === CLEAR_LABEL) {
-    currentCSS.unuse();
-    currentCSS = null;
-  }
-}
-
-function setCookie(cname: string, cvalue: string, exdays: number) {
-  const d = new Date();
-  d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
-  const expires = `expires=${d.toUTCString()}`;
-  document.cookie = `${cname}=${cvalue};${expires};path=/`;
-}
-
-function handleStyleSwitch({
-  id,
-  files,
-  save,
-}: {
-  id: string;
-  files: { [key: string]: any };
-  save: boolean;
-}) {
-  addBrandStyles(id, files);
-
-  if (save) {
-    setCookie('cssVariables', id, 10);
-  }
-
-  const customEvent = new CustomEvent(EVENT_NAME, { detail: { theme: id } });
-  document?.dispatchEvent(customEvent);
-}
+import { ADDON_PARAM_KEY, CLEAR_LABEL } from './constants';
+import { getCookie, handleStyleSwitch, transformFiles } from './helpers';
 
 export default makeDecorator({
   name: 'CSS Variables Theme',
   parameterName: ADDON_PARAM_KEY,
 
   wrapper: (getStory, context, { parameters }) => {
-    const { files, theme, defaultTheme } = parameters;
+    const { theme, defaultTheme } = parameters;
+    const files = transformFiles(parameters.files);
     const globalsTheme = context.globals.cssVariables;
     const channel = addons.getChannel();
     const cookieId = getCookie('cssVariables');
