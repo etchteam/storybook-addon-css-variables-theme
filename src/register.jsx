@@ -1,32 +1,27 @@
-import React, { useEffect, useState } from 'react';
-import { addons, types } from '@storybook/addons';
-import { styled } from '@storybook/theming';
-import { useChannel, useParameter } from '@storybook/api';
 import {
-  Icons,
   IconButton,
   WithTooltip,
   TooltipLinkList,
 } from '@storybook/components';
-import getCookie from './getCookie';
+import { PaintBrushIcon } from '@storybook/icons';
+import {
+  addons,
+  types,
+  useChannel,
+  useParameter,
+} from '@storybook/manager-api';
+import { styled } from '@storybook/theming';
+import { useEffect, useState } from 'react';
+
 import { ADDON_ID, ADDON_PARAM_KEY, CLEAR_LABEL } from './constants';
-
-type Files = {
-  [key: string]: any;
-};
-
-type Params = {
-  files?: Files;
-  theme?: string;
-  defaultTheme?: string;
-};
+import { getCookie } from './cookie';
 
 const IconButtonWithLabel = styled(IconButton)(() => ({
   display: 'inline-flex',
   alignItems: 'center',
 }));
 
-const ActiveViewportLabel = styled.div<{}>(({ theme }) => ({
+const ActiveViewportLabel = styled.div(({ theme }) => ({
   display: 'inline-block',
   textDecoration: 'none',
   padding: 10,
@@ -42,9 +37,9 @@ const ActiveViewportLabel = styled.div<{}>(({ theme }) => ({
 
 const Dropdown = () => {
   const cookieTheme = getCookie('cssVariables');
-  const addonParams: Params = useParameter(ADDON_PARAM_KEY, {});
+  const addonParams = useParameter(ADDON_PARAM_KEY, {});
   const { theme, defaultTheme, files } = addonParams;
-  const id = files && Object.hasOwnProperty.call(files, cookieTheme) && cookieTheme;
+  const id = files && Object.hasOwn(files, cookieTheme) && cookieTheme;
   const [selected, setSelected] = useState(theme || id);
 
   const emit = useChannel({});
@@ -55,14 +50,14 @@ const Dropdown = () => {
     }
   }, [selected, theme, defaultTheme, id]);
 
-  function handleChange(onHide: () => void, value: string | null) {
+  function handleChange(onHide, value) {
     const newValue = value.indexOf(CLEAR_LABEL) > -1 ? CLEAR_LABEL : value;
     setSelected(newValue);
     emit('cssVariablesChange', { id: newValue });
     onHide();
   }
 
-  function toLink(value: string, active: boolean, onHide: () => void) {
+  function toLink(value, active, onHide) {
     return {
       id: value,
       title: !value ? CLEAR_LABEL : value,
@@ -71,9 +66,10 @@ const Dropdown = () => {
     };
   }
 
-  function generateLinks(items: Files, onHide: () => void) {
-    // eslint-disable-next-line max-len
-    const result: any[] = Object.keys(items).map((value) => toLink(value, value === selected, onHide));
+  function generateLinks(items, onHide) {
+    const result = Object.keys(items).map((value) =>
+      toLink(value, value === selected, onHide),
+    );
     if (selected !== CLEAR_LABEL && !defaultTheme) {
       result.unshift(toLink(CLEAR_LABEL, false, onHide));
     }
@@ -88,14 +84,13 @@ const Dropdown = () => {
         tooltip={({ onHide }) => (
           <TooltipLinkList links={generateLinks(files, onHide)} />
         )}
-        closeOnClick
       >
         <IconButtonWithLabel
           key="css themes"
           title="CSS custom properties themes"
-          active={Object.hasOwnProperty.call(files, selected)}
+          active={Object.hasOwn(files, selected)}
         >
-          <Icons icon="paintbrush" />
+          <PaintBrushIcon />
           <ActiveViewportLabel title="Theme">
             {selected || 'No theme'}
           </ActiveViewportLabel>
