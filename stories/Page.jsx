@@ -1,16 +1,7 @@
-import React from 'react';
-
 import Header from './Header';
 import './page.css';
 
-interface PageProps {
-  readonly user?: unknown;
-  readonly onLogin: () => void;
-  readonly onLogout: () => void;
-  readonly onCreateAccount: () => void;
-}
-
-const Page = ({ user, onLogin, onLogout, onCreateAccount }: PageProps) => (
+const Page = ({ user, onLogin, onLogout, onCreateAccount }) => (
   <article>
     <Header
       user={user}
@@ -87,9 +78,5 @@ const Page = ({ user, onLogin, onLogout, onCreateAccount }: PageProps) => (
     </section>
   </article>
 );
-
-Page.defaultProps = {
-  user: undefined,
-};
 
 export default Page;

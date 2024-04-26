@@ -15,9 +15,7 @@ jobs:
           cache: npm
       - run: npm ci
       - name: Lint JS
-        run: npx --no -- eslint .
-      - name: Lint CSS
-        run: npx --no -- stylelint .
+        run: npx --no -- eslint src
   build:
     runs-on: ubuntu-latest
     steps:

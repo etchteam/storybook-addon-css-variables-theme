@@ -1,16 +1,7 @@
-import React from 'react';
-
 import Button from './Button';
 import './header.css';
 
-interface HeaderProps {
-  readonly user?: unknown;
-  readonly onLogin: () => void;
-  readonly onLogout: () => void;
-  readonly onCreateAccount: () => void;
-}
-
-const Header = ({ user, onLogin, onLogout, onCreateAccount }: HeaderProps) => (
+const Header = ({ user, onLogin, onLogout, onCreateAccount }) => (
   <header>
     <div className="wrapper">
       <div>
@@ -55,9 +46,5 @@ const Header = ({ user, onLogin, onLogout, onCreateAccount }: HeaderProps) => (
     </div>
   </header>
 );
-
-Header.defaultProps = {
-  user: undefined,
-};
 
 export default Header;

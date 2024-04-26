@@ -1,21 +1,15 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react';
-import React from 'react';
-
 import * as HeaderStories from './Header.stories';
 import Page from './Page';
 
 export default {
   title: 'Example/Page',
   component: Page,
-} as ComponentMeta<typeof Page>;
+};
 
-const Template: ComponentStory<typeof Page> = (args) => {
-  document.addEventListener(
-    'storybookcssvariables:theme:change',
-    (event: CustomEvent) => {
-      console.info(`The theme changed to ${event?.detail?.theme}`);
-    },
-  );
+const Template = (args) => {
+  document.addEventListener('storybookcssvariables:theme:change', (event) => {
+    console.info(`The theme changed to ${event?.detail?.theme}`);
+  });
 
   return <Page {...args} />;
 };

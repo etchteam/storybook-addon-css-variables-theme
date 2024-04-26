@@ -1,11 +1,7 @@
 {
   "editor.formatOnSave": false,
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": "explicit",
-    "source.fixAll.stylelint": "explicit"
+    "source.fixAll.eslint": "explicit"
   },
-  "sonarlint.connectedMode.project": {
-    "connectionId": "etchteam",
-    "projectKey": "etchteam_storybook-addon-css-variables-theme"
-  }
+  "eslint.format.enable": true
 }
