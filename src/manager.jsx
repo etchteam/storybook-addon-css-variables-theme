@@ -105,7 +105,7 @@ addons.register(ADDON_ID, () => {
   addons.add(ADDON_ID, {
     title: 'CSS Variables Theme',
     type: types.TOOL,
-    match: ({ viewMode }) => viewMode === 'story' || viewMode === 'docs',
+    match: ({ viewMode }) => !!(viewMode && viewMode.match(/^(story|docs)$/)),
     render: () => <Dropdown />,
   });
 });
