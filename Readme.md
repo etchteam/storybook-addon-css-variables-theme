@@ -20,7 +20,7 @@ Add the following code to it:
 
 ```js
 module.exports = {
-  addons: ['@etchteam/storybook-addon-css-variables-theme/dist/preset'],
+  addons: ['@etchteam/storybook-addon-css-variables-theme'],
 };
 ```
 
@@ -127,6 +127,12 @@ Themes are stored in storybook globals.
 
 Pass the theme to the url as a query by adding `&globals=cssVariables:mytheme` to the url.
 If multi word theme query is `&globals=cssVariables:my+theme`
+
+### Use in MDX docs
+
+This addon applies styles through a [decorator](https://storybook.js.org/docs/addons/addons-api#makedecorator).
+
+So, within MDX files, [styles will only apply to a `<Story>` or `<Canvas>`](https://github.com/storybookjs/storybook/issues/12290#issuecomment-682404317).
 
 ---
 
