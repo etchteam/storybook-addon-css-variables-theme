@@ -20,7 +20,7 @@ Add the following code to it:
 
 ```js
 module.exports = {
-  addons: ['@etchteam/storybook-addon-css-variables-theme'],
+  addons: ['@etchteam/storybook-addon-css-variables-theme/dist/preset'],
 };
 ```
 
@@ -38,6 +38,8 @@ import dark from '!!style-loader?injectType=lazyStyleTag!css-loader!../src/style
 This code calls `style-loader` with `?injectType=lazyStyleTag` so that it doesn't run the CSS immediately.
 
 You can swap out `css-loader` for your preferred SCSS/Less/etc loaders.
+
+Any loaders used here will need to be installed in your project: `npm i -D style-loader css-loader`
 
 ### Step 3: Add the Decorator
 
@@ -97,7 +99,17 @@ export default {
 
 ### Get the currently enabled theme within stories
 
-Watch the custom `storybookcssvariables:theme:change` event on the `document`.
+You can access the currently set theme from the context object provided by storybook as the second parameter.
+
+```js
+
+const Template: ComponentStory<typeof Button> = (args, context) => (
+  <Button {...args}>{context.themeId}</Button>
+);
+
+```
+
+Alternatively watch the custom `storybookcssvariables:theme:change` event on the `document`.
 
 ```js
 document.addEventListener(
@@ -107,6 +119,14 @@ document.addEventListener(
   },
 );
 ```
+
+
+### Set a Theme by Query String
+
+Themes are stored in storybook globals.
+
+Pass the theme to the url as a query by adding `&globals=cssVariables:mytheme` to the url.
+If multi word theme query is `&globals=cssVariables:my+theme`
 
 ---
 

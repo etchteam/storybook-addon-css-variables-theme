@@ -11,7 +11,7 @@ import {
   useParameter,
 } from '@storybook/manager-api';
 import { styled } from '@storybook/theming';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 import { ADDON_ID, ADDON_PARAM_KEY, CLEAR_LABEL } from './constants';
 import { getCookie } from './cookie';
@@ -36,11 +36,18 @@ const ActiveViewportLabel = styled.div(({ theme }) => ({
 }));
 
 const Dropdown = () => {
+  const [globals, updateGlobals] = useGlobals();
   const cookieTheme = getCookie('cssVariables');
   const addonParams = useParameter(ADDON_PARAM_KEY, {});
   const { theme, defaultTheme, files } = addonParams;
   const id = files && Object.hasOwn(files, cookieTheme) && cookieTheme;
-  const [selected, setSelected] = useState(theme || id);
+
+  const selected = globals.cssVariables || theme || id;
+  const setSelected = (value) => {
+    updateGlobals({
+      cssVariables: value,
+    });
+  };
 
   const emit = useChannel({});
 

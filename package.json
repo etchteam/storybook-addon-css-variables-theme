@@ -1,6 +1,6 @@
 {
   "name": "@etchteam/storybook-addon-css-variables-theme",
-  "version": "1.5.0",
+  "version": "2.1.0",
   "description": "Switch CSS files to change themes",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -43,6 +43,8 @@
     "@babel/core": "7.24.4",
     "@babel/preset-env": "7.24.4",
     "@babel/preset-react": "7.24.1",
+    "@commitlint/cli": "^19.3.0",
+    "@commitlint/config-conventional": "^19.2.2",
     "@etchteam/eslint-config": "1.10.0",
     "@storybook/addon-essentials": "8.0.9",
     "@storybook/addon-webpack5-compiler-babel": "^3.0.3",

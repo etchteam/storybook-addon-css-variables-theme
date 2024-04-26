@@ -41,12 +41,13 @@ export default makeDecorator({
   parameterName: ADDON_PARAM_KEY,
   wrapper: (getStory, context, { parameters }) => {
     const { files, theme, defaultTheme } = parameters;
+    const globalsTheme = context.globals.cssVariables;
     const channel = addons.getChannel();
     const cookieId = getCookie('cssVariables');
     const hasSavedTheme =
       Object.hasOwn(files, cookieId) || cookieId === CLEAR_LABEL;
     const savedTheme = hasSavedTheme ? cookieId : null;
-    const themeToLoad = theme || savedTheme || defaultTheme;
+    const themeToLoad = globalsTheme || theme || savedTheme || defaultTheme;
 
     handleStyleSwitch({
       id: themeToLoad,
