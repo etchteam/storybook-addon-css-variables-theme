@@ -1,1 +1,1 @@
-require('./dist/manager');
+import './dist/manager';

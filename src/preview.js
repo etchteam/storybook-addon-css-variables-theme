@@ -1,3 +1,5 @@
+import { ADDON_ID } from './constants';
+
 export const globals = {
-  cssVariables: null,
+  [ADDON_ID]: null,
 };

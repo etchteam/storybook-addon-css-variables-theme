@@ -1,7 +1,9 @@
+import React from 'react';
+
 import Button from './Button';
 import './header.css';
 
-const Header = ({ user, onLogin, onLogout, onCreateAccount }) => (
+const Header = ({ user, onLogin, onLogout, onCreateAccount, children }) => (
   <header>
     <div className="wrapper">
       <div>
@@ -27,6 +29,7 @@ const Header = ({ user, onLogin, onLogout, onCreateAccount }) => (
           </g>
         </svg>
         <h1>Acme</h1>
+        <p>{children}</p>
       </div>
       <div>
         {user ? (

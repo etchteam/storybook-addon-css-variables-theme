@@ -1,3 +1,5 @@
+import React from 'react';
+
 import Header from './Header';
 
 export default {
@@ -15,7 +17,11 @@ export default {
   },
 };
 
-const Template = (args) => <Header {...args} />;
+const Template = (args, context) => (
+  <Header {...args}>
+    The current theme is: {context.globals.cssVariables ?? 'No theme'}
+  </Header>
+);
 
 export const LoggedIn = Template.bind({});
 LoggedIn.args = {

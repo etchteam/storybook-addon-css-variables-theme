@@ -65,6 +65,7 @@ export const parameters = {
   }
 }
 ```
+
 If a default theme should be selected from first load add 'defaultTheme' to the options.
 
 ```js
@@ -104,7 +105,7 @@ You can access the currently set theme from the context object provided by story
 ```js
 
 const Template: ComponentStory<typeof Button> = (args, context) => (
-  <Button {...args}>{context.themeId}</Button>
+  <Button {...args}>{context.globals.cssVariables ?? 'No theme'}</Button>
 );
 
 ```
