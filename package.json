@@ -1,6 +1,6 @@
 {
   "name": "@etchteam/storybook-addon-css-variables-theme",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Switch CSS files to change themes",
   "type": "module",
   "exports": {
