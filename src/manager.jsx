@@ -8,12 +8,13 @@ import {
   addons,
   types,
   useChannel,
+  useGlobals,
   useParameter,
 } from '@storybook/manager-api';
 import { styled } from '@storybook/theming';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 
-import { ADDON_ID, ADDON_PARAM_KEY, CLEAR_LABEL } from './constants';
+import { ADDON_ID, CLEAR_LABEL } from './constants';
 import { getCookie } from './cookie';
 
 const IconButtonWithLabel = styled(IconButton)(() => ({
@@ -37,15 +38,16 @@ const ActiveViewportLabel = styled.div(({ theme }) => ({
 
 const Dropdown = () => {
   const [globals, updateGlobals] = useGlobals();
-  const cookieTheme = getCookie('cssVariables');
-  const addonParams = useParameter(ADDON_PARAM_KEY, {});
+  const cookieTheme = getCookie(ADDON_ID);
+  const addonParams = useParameter(ADDON_ID, {});
   const { theme, defaultTheme, files } = addonParams;
   const id = files && Object.hasOwn(files, cookieTheme) && cookieTheme;
 
-  const selected = globals.cssVariables || theme || id;
+  const selected = globals[ADDON_ID] || theme || id;
+
   const setSelected = (value) => {
     updateGlobals({
-      cssVariables: value,
+      [ADDON_ID]: value,
     });
   };
 
@@ -60,7 +62,7 @@ const Dropdown = () => {
   function handleChange(onHide, value) {
     const newValue = value.indexOf(CLEAR_LABEL) > -1 ? CLEAR_LABEL : value;
     setSelected(newValue);
-    emit('cssVariablesChange', { id: newValue });
+    emit(`${ADDON_ID}Change`, { id: newValue });
     onHide();
   }
 
