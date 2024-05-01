@@ -5,6 +5,9 @@ import { defineConfig } from 'tsup';
 // The current browsers supported by Storybook v7
 const BROWSER_TARGET = ['chrome100', 'safari15', 'firefox91'];
 const NODE_TARGET = ['node18'];
+const globalManagerPackagesExcludingIcons = globalManagerPackages.filter(
+  (packageName) => packageName !== '@storybook/icons',
+);
 
 export default defineConfig(async (options) => {
   const commonConfig = {
@@ -19,10 +22,14 @@ export default defineConfig(async (options) => {
     {
       ...commonConfig,
       entry: ['src/index.js'],
+      dts: { resolve: true },
       format: ['esm', 'cjs'],
       target: [...BROWSER_TARGET, ...NODE_TARGET],
       platform: 'neutral',
-      external: [...globalManagerPackages, ...globalPreviewPackages],
+      external: [
+        ...globalManagerPackagesExcludingIcons,
+        ...globalPreviewPackages,
+      ],
     },
     {
       ...commonConfig,
@@ -30,11 +37,12 @@ export default defineConfig(async (options) => {
       format: ['esm'],
       target: BROWSER_TARGET,
       platform: 'browser',
-      external: globalManagerPackages,
+      external: globalManagerPackagesExcludingIcons,
     },
     {
       ...commonConfig,
       entry: ['src/preview.js'],
+      dts: { resolve: true },
       format: ['esm', 'cjs'],
       target: BROWSER_TARGET,
       platform: 'browser',
