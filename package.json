@@ -1,10 +1,13 @@
 {
   "name": "@etchteam/storybook-addon-css-variables-theme",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "Switch CSS files to change themes",
   "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
     },
@@ -50,6 +53,9 @@
     "url": "https://github.com/etchteam/storybook-addon-css-variables-theme/issues"
   },
   "homepage": "https://github.com/etchteam/storybook-addon-css-variables-theme#readme",
+  "dependencies": {
+    "@storybook/icons": "^1.2.9"
+  },
   "devDependencies": {
     "@commitlint/cli": "^19.3.0",
     "@commitlint/config-conventional": "^19.2.2",
@@ -60,7 +66,6 @@
     "@storybook/client-logger": "8.0.9",
     "@storybook/components": "8.0.9",
     "@storybook/core-events": "8.0.9",
-    "@storybook/icons": "^1.2.9",
     "@storybook/manager-api": "8.0.9",
     "@storybook/preview-api": "^8.0.9",
     "@storybook/react-webpack5": "^8.0.9",
@@ -75,7 +80,8 @@
     "react-dom": "18.2.0",
     "storybook": "8.0.9",
     "swc-loader": "^0.2.6",
-    "tsup": "^8.0.2"
+    "tsup": "^8.0.2",
+    "typescript": "^5.4.5"
   },
   "publishConfig": {
     "access": "public"
