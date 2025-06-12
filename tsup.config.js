@@ -1,5 +1,5 @@
-import { globalPackages as globalManagerPackages } from '@storybook/manager/globals';
-import { globalPackages as globalPreviewPackages } from '@storybook/preview/globals';
+import { globalPackages as globalManagerPackages } from 'storybook/internal/manager/globals';
+import { globalPackages as globalPreviewPackages } from 'storybook/internal/preview/globals';
 import { defineConfig } from 'tsup';
 
 // The current browsers supported by Storybook v7

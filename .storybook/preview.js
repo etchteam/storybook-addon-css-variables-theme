@@ -5,7 +5,7 @@ import dark from '!!style-loader?injectType=lazyStyleTag!css-loader!../stories/a
 
 const preview = {
   parameters: {
-    actions: { argTypesRegex: "^on[A-Z].*" },
+    actions: { argTypesRegex: '^on[A-Z].*' },
     controls: {
       matchers: {
         color: /(background|color)$/i,
@@ -17,9 +17,10 @@ const preview = {
         'Light Theme': light,
         'Dark Theme': dark,
       },
-    }
+    },
   },
   decorators: [cssVariablesTheme],
+  tags: ['autodocs'],
 };
 
 export default preview;

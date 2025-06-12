@@ -1,5 +1,5 @@
 import { ADDON_ID } from './constants';
 
-export const globals = {
+export const initialGlobals = {
   [ADDON_ID]: null,
 };

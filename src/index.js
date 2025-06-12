@@ -1,4 +1,4 @@
-import { addons, makeDecorator } from '@storybook/preview-api';
+import { addons, makeDecorator } from 'storybook/preview-api';
 
 import { ADDON_ID, CLEAR_LABEL, EVENT_NAME } from './constants';
 import { getCookie, setCookie } from './cookie';

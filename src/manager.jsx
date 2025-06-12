@@ -1,18 +1,18 @@
+import { PaintBrushIcon } from '@storybook/icons';
+import React, { useEffect } from 'react';
 import {
   IconButton,
   WithTooltip,
   TooltipLinkList,
-} from '@storybook/components';
-import { PaintBrushIcon } from '@storybook/icons';
+} from 'storybook/internal/components';
 import {
   addons,
   types,
   useChannel,
   useGlobals,
   useParameter,
-} from '@storybook/manager-api';
-import { styled } from '@storybook/theming';
-import React, { useEffect } from 'react';
+} from 'storybook/manager-api';
+import { styled } from 'storybook/theming';
 
 import { ADDON_ID, CLEAR_LABEL } from './constants';
 import { getCookie } from './cookie';
