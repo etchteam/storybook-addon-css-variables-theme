@@ -1,5 +1,8 @@
 # Storybook Addon CSS Variables Theme
 
+> [!WARNING]
+> This addon is deprecated. Please use the official addon [@storybook/addon-themes](https://storybook.js.org/addons/@storybook/addon-themes) instead. See the [migration guide](./Migration.md) for help switching.
+
 Storybook CSS Variables Theme can be used to switch out CSS files in [Storybook](https://storybook.js.org).
 
 ![React Storybook Screenshot](https://raw.githubusercontent.com/etchteam/storybook-addon-css-variables-theme/master/screenshot.gif)
