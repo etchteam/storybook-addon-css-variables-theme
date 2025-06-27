@@ -2,6 +2,7 @@
   "name": "@etchteam/storybook-addon-css-variables-theme",
   "version": "3.0.0",
   "description": "Switch CSS files to change themes",
+  "deprecated": "This package is no longer maintained. Migrate to the official @storybook/addon-themes: https://storybook.js.org/addons/@storybook/addon-themes.",
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
